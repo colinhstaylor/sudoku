@@ -1,0 +1,112 @@
+Summarise your findings here (see specification).
+
+==================== START OF FINDINGS ===========================
+
+================ Which board is impossible? ======================
+
+Conclusion:
+'mystery2' board is impossible. See output of main.cpp
+
+========= Which boards are 'hard' and 'extremely hard'? =======
+
+It is between 'mystery1' or 'mystery3' as 'mystery2' is impossible.
+
+There are a number of tests done to determine which is more difficult.
+The results of these are given below, followed by my conclusion.
+
+NOTE ON INTERPRETATION OF THE QUESTION: 
+The question assumes the labelling of the boards as 'hard' or 'extremely
+hard' refers to the difficult a human player would have solving the boards.
+
+============================ TESTS ================================
+
+================ Given numbers test ==============
+
+The following table shows the number of squares that are pre-filled in each puzzle:
+
+board       given numbers
+easy        26
+medium      25
+mystery1    23
+mystery3    24
+
+This suggests that mystery1 is more difficult, and that this may be a reasonable test.
+
+================= Recursive function calls test =============== 
+
+NOTE: THE TESTS THAT PROVIDED THE RESULTS IN THIS SECTION HAVE BEEN
+    COMMENTED OUT OF THE SUBMISSION DUE TO THEM CAUSING A COMPILATION
+    ERROR ON LABTS
+
+The following table shows the number of calls to the function solve_board needed
+to solve each puzzle:
+
+board       recursive calls
+easy        2172
+medium      15662
+mystery1    421547
+mystery3    14134   
+
+On one hand, the relative number of calls needed to solve 'easy' and 'medium' boards suggests that this
+is a good measure of difficulty. However, the fact that mystery3 is solved in fewer calls than
+'medium' strongly suggests otherwise, as 'mystery3' is known to be more difficult than 'medium'.
+
+Therefore no conclusion can be drawn from this result.
+
+================= Recursive backtracks test ================== 
+
+NOTE: THE TESTS THAT PROVIDED THE RESULTS IN THIS SECTION HAVE BEEN
+    COMMENTED OUT OF THE SUBMISSION DUE TO THEM CAUSING A COMPILATION
+    ERROR ON LABTS
+
+The number of 'backtracks' within the recursive solver was also investigated.
+However, this number was found to have a common difference with the number of
+function calls so provides no additional insight. The results are given below:
+
+board       backtracks ('return 0s' of solve_board)
+easy        2116
+medium      15605
+mystery1    421488
+mystery3    14076
+
+================= 'Possible' or 'Certain' moves tests ================== 
+
+A 'possible' move is defined as whenever a digit can be put into a square.
+A 'certain' move is whenever only one digit can go in a square.
+
+A function was written to loop through all empty squares on the board
+making a move whenever there was only one possible move in that square
+(a 'certain' move).
+
+The following tables show the results:
+
+board       possible moves      certain moves
+easy        190                 0
+medium      686                 63
+mystery1    227                 0
+mystery3    222                 0
+
+The results of possible moves investigation indicates that this is not
+a reasonable measure, as medium has many more moves than easy, and both
+hard boards are in between these values.
+
+The results of the certain moves test is also unusable. Easy has no certain
+moves yet is defined as the easiest board. The reason for this is that our
+definition of a 'certain' moves only counts certain moves per square. It does
+not count certain moves per row, column or 3x3 box. e.g. the case given in
+the coursework specification where I8 of 'easy' must contain a '1' because 
+a '1' can not go anywhere else in the box. As is shown in the table, this
+was not counted and indeed these types of moves are one of the fundamental
+moves that even a beginner human player would use.
+
+============================= CONCLUSION ===================================
+
+The only test carried out that produces apparently reliable results - ones
+where there is a correlation with the difficulty of the boards easy, medium
+and the hard boards - is the basic number of digits already filled in count.
+
+Therefore we must conclude that 'mystery1' is the 'extremely hard' board and 'mystery3'
+is the 'hard' board, as 'mystery1' has fewer given numbers than
+'mystery3'.
+
+============================ END OF FINDINGS ===============================
